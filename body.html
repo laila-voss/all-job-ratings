@@ -1,0 +1,171 @@
+<div class="app-header">
+  <h1>Social Signals of Jobs &mdash; Average Characteristic Ratings</h1>
+  <p>105 occupations rated on 15 characteristics (8 person-level, 7 occupation-level), 0&ndash;100 scale.</p>
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="full-ratings">Full Ratings</button>
+    <button class="tab-btn" data-tab="explore-occupations">Explore Occupations</button>
+    <button class="tab-btn" data-tab="explore-characteristics">Explore Characteristics</button>
+    <button class="tab-btn" data-tab="compare">Compare</button>
+    <button class="tab-btn" data-tab="about">About</button>
+  </nav>
+</div>
+
+<main class="app-main">
+
+<section id="tab-full-ratings" class="tab-pane active">
+  <div class="controls">
+    <div class="control-group">
+      <label>Show</label>
+      <div class="toggle-group">
+        <label><input type="radio" name="char-view" value="all" checked><span>All characteristics</span></label>
+        <label><input type="radio" name="char-view" value="person"><span>Person-level</span></label>
+        <label><input type="radio" name="char-view" value="occ"><span>Occupation-level</span></label>
+      </div>
+    </div>
+    <div class="control-group grow">
+      <label for="full-search">Search occupation</label>
+      <input type="search" id="full-search" placeholder="e.g. Teacher, Nurse, Manager…">
+    </div>
+    <div class="control-group">
+      <label>&nbsp;</label>
+      <button class="btn" id="download-csv">Download CSV</button>
+    </div>
+  </div>
+  <div class="search-row" style="margin-bottom: 0.6rem;">
+    <span class="hint">Click any column header to sort. The occupation column stays in view as you scroll right.</span>
+  </div>
+  <div class="table-wrapper" id="full-table-wrapper"></div>
+</section>
+
+<section id="tab-explore-occupations" class="tab-pane">
+  <div class="controls">
+    <div class="control-group grow">
+      <label for="occ-select">Occupation</label>
+      <select id="occ-select"></select>
+    </div>
+  </div>
+  <div style="margin-bottom: 0.5rem;">
+    <h2 id="occ-title" style="margin: 0.5rem 0 0.2rem; font-size: 1.2rem;"></h2>
+    <div class="hint" id="occ-summary"></div>
+    <div id="occ-description" class="occ-description"></div>
+  </div>
+  <div class="chart-grid stacked">
+    <div class="chart-card">
+      <h3 style="color: var(--person);">Person-level characteristics</h3>
+      <div class="subtitle">How the typical person in this job is rated</div>
+      <div id="occ-person-plot" class="plot"></div>
+    </div>
+    <div class="chart-card">
+      <h3 style="color: var(--occ);">Occupation-level characteristics</h3>
+      <div class="subtitle">How the job itself is rated</div>
+      <div id="occ-job-plot" class="plot"></div>
+    </div>
+  </div>
+</section>
+
+<section id="tab-explore-characteristics" class="tab-pane">
+  <div class="controls">
+    <div class="control-group">
+      <label>View</label>
+      <div class="toggle-group">
+        <label><input type="radio" name="char-mode" value="rank" checked><span>Ranking</span></label>
+        <label><input type="radio" name="char-mode" value="scatter"><span>Scatter (2 chars)</span></label>
+      </div>
+    </div>
+    <div class="control-group">
+      <label for="char-select">Characteristic</label>
+      <select id="char-select"></select>
+    </div>
+    <div class="control-group" id="char-second-control" style="display: none;">
+      <label for="char-select-2">Second characteristic (Y-axis)</label>
+      <select id="char-select-2"></select>
+    </div>
+    <div class="control-group" id="char-highlight-control" style="display: none;">
+      <label for="char-highlight">Highlight occupation</label>
+      <input type="search" id="char-highlight" placeholder="Type to highlight…">
+    </div>
+  </div>
+  <div id="char-rank-card" class="chart-card">
+    <div id="char-rank-plot" class="plot x-tall"></div>
+  </div>
+  <div id="char-scatter-card" class="chart-card" style="display: none;">
+    <div id="char-scatter-plot" class="plot tall"></div>
+  </div>
+</section>
+
+<section id="tab-compare" class="tab-pane">
+  <div class="controls">
+    <div class="control-group">
+      <label>Compare</label>
+      <div class="toggle-group">
+        <label><input type="radio" name="cmp-mode" value="occ" checked><span>Occupations</span></label>
+        <label><input type="radio" name="cmp-mode" value="char"><span>Characteristics</span></label>
+      </div>
+    </div>
+  </div>
+
+  <div id="cmp-occ-section">
+    <div class="controls">
+      <div class="control-group grow">
+        <label for="cmp-occ-input">Add occupation (up to 5)</label>
+        <input type="text" id="cmp-occ-input" list="cmp-occ-list" placeholder="Type to search…">
+        <datalist id="cmp-occ-list"></datalist>
+      </div>
+      <div class="control-group">
+        <label>&nbsp;</label>
+        <button class="btn" id="cmp-occ-add">Add</button>
+      </div>
+      <div class="control-group">
+        <label>&nbsp;</label>
+        <button class="btn btn-secondary" id="cmp-occ-clear">Clear</button>
+      </div>
+    </div>
+    <div id="cmp-occ-chips" class="chips" style="margin-bottom: 1rem;"></div>
+    <div class="chart-card" style="margin-bottom: 1rem;">
+      <h3>Comparison chart</h3>
+      <div id="cmp-occ-plot" class="plot"></div>
+    </div>
+    <div class="chart-card">
+      <h3>Comparison table</h3>
+      <div id="cmp-occ-table"></div>
+    </div>
+  </div>
+
+  <div id="cmp-char-section" style="display: none;">
+    <div class="controls">
+      <div class="control-group grow">
+        <label>Pick characteristics (up to 5)</label>
+        <div id="cmp-char-grid" class="checkbox-grid"></div>
+      </div>
+    </div>
+    <div class="chart-card" style="margin-bottom: 1rem;">
+      <h3>Comparison chart</h3>
+      <div class="subtitle">Occupations sorted by mean of selected characteristics</div>
+      <div id="cmp-char-plot" class="plot"></div>
+    </div>
+    <div class="chart-card">
+      <h3>Comparison table</h3>
+      <div id="cmp-char-table"></div>
+    </div>
+  </div>
+</section>
+
+<section id="tab-about" class="tab-pane">
+  <div class="about">
+    <p class="lede">We asked Prolific participants to rate 105 occupations on 15 characteristics: 8 person-level characteristics describing the typical person in each job, and 7 occupation-level characteristics describing the job itself. Each rating was given on a 0-100 scale, where 0 means &ldquo;much less than average&rdquo; and 100 means &ldquo;more than any other occupation.&rdquo; Each respondent was randomly assigned 3 person-level and 2 occupation-level characteristics and rated 24 randomly-selected occupations.</p>
+
+    <h2>Person-level characteristic definitions</h2>
+    <div id="about-person"></div>
+
+    <h2>Job-level characteristic definitions</h2>
+    <div id="about-occ"></div>
+  </div>
+</section>
+
+</main>
+
+<footer class="app-footer">
+  <span id="footer-stats"></span>
+</footer>
+
+<script src="app.js"></script>
