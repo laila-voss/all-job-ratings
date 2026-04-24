@@ -655,15 +655,17 @@
 
   // ---- Footer --------------------------------------------------------------
   function buildFooter() {
-    const el = document.getElementById("header-stats");
-    if (!el) return;
     const np = (META.n_participants ?? "").toLocaleString();
     const nr = (META.n_ratings ?? "").toLocaleString();
     const parts = [];
     if (META.n_participants != null) parts.push(`${np} participant${META.n_participants === 1 ? "" : "s"}`);
     if (META.n_ratings != null)      parts.push(`${nr} ratings`);
     if (META.build_date)             parts.push(`updated ${META.build_date.trim()}`);
-    el.textContent = parts.join(" · ");
+    const text = parts.join(" · ");
+    ["header-stats", "footer-stats"].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = text;
+    });
   }
 
   // ---- Init ----------------------------------------------------------------

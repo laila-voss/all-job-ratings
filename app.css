@@ -331,3 +331,12 @@ table.ratings-table td.na { color: #b8bcc4; }
   font-size: 0.82rem;
   color: var(--text-soft);
 }
+
+.app-footer {
+  border-top: 1px solid var(--border);
+  padding: 1rem 2rem;
+  color: var(--text-soft);
+  font-size: 0.82rem;
+  text-align: center;
+  margin-top: 2rem;
+}
