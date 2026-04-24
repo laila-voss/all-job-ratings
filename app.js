@@ -655,7 +655,7 @@
 
   // ---- Footer --------------------------------------------------------------
   function buildFooter() {
-    const el = document.getElementById("footer-stats");
+    const el = document.getElementById("header-stats");
     if (!el) return;
     const np = (META.n_participants ?? "").toLocaleString();
     const nr = (META.n_ratings ?? "").toLocaleString();
