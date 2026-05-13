@@ -45,7 +45,7 @@ desc_map <- c(desc_map, supp_descs)
 descs_json <- as.character(toJSON(as.list(desc_map), auto_unbox = TRUE))
 
 # --- Participant / rating counts --------------------------------------------
-long <- as.data.frame(read_dta(file.path(DATA_DIR, "Pilot Data - Long.dta")))
+long <- as.data.frame(read_dta(file.path(DATA_DIR, "Ratings Data - Long.dta")))
 n_participants <- length(unique(long$prolific_ID))
 n_ratings <- sum(!is.na(long$rating))
 meta_json <- as.character(toJSON(list(
